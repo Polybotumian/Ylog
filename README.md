@@ -1,6 +1,6 @@
 # Ylog
 
-Ylog is a flexible and lightweight C++ logging framework designed to simplify logging operations in your C++ applications. It offers a range of features for logging messages with different levels, customizing log formats, managing log file rotation, and more. Ylog is easy to integrate into your C++ projects and provides robust error handling.
+Ylog is a flexible and lightweight C++ logging framework designed to simplify logging operations in your C++ applications. It offers a range of features for logging messages with different levels, customizing log formats, managing log file rotation, and more. Ylog is easy to integrate into your C++ projects and provides error handling.
 
 ## Features
 
