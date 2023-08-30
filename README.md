@@ -73,21 +73,21 @@ To use Ylog in your C++ project:
           return 0;
       }
    ```
-```cpp
-#include "Ylog.h"
-
-int main() {
-    Ylog::Logger logger("rotating_log", ".log", Ylog::Levels::DEBUG, Ylog::DatetimeFormats::Ymd_HMS);
-
-    // Enable log file rotation
-    logger.Enable(Ylog::Logger::Modes::ROTATE);
-    logger.SetMaxSize(1000000); // Set the maximum file size for rotation
-
-    for (std::uint16_t i = 0; i < 10000; i++) {
-        logger.Write(Ylog::Levels::INFO, "This is a log message.");
-    }
-
-    return 0;
-}
-```
+   ```cpp
+   #include "Ylog.h"
+   
+   int main() {
+       Ylog::Logger logger("rotating_log", ".log", Ylog::Levels::DEBUG, Ylog::DatetimeFormats::Ymd_HMS);
+   
+       // Enable log file rotation
+       logger.Enable(Ylog::Logger::Modes::ROTATE);
+       logger.SetMaxSize(1000000); // Set the maximum file size for rotation
+   
+       for (std::uint16_t i = 0; i < 10000; i++) {
+           logger.Write(Ylog::Levels::INFO, "This is a log message.");
+       }
+   
+       return 0;
+   }
+   ```
 
