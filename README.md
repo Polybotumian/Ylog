@@ -34,7 +34,7 @@ To use Ylog in your C++ project:
 
    int main() {
        // Initialize the logger
-       Ylog::Logger logger("myapp.log", ".txt", Ylog::Levels::INFO, Ylog::DatetimeFormats::Ymd_HMS);
+       Ylog::Logger logger("myapp", ".log", Ylog::Levels::INFO, Ylog::DatetimeFormats::Ymd_HMS);
 
        // Log a message
        logger.Write(Ylog::Levels::INFO, "This is an information message.");
