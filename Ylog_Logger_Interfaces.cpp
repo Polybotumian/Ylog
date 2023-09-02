@@ -35,18 +35,21 @@ std::string Ylog::Interfaces::ILogger::GetTimestamp()
 void Ylog::Interfaces::IFileLogger::RemoveLogs(const std::filesystem::path& path, const std::string& extension)
 {
     std::filesystem::directory_iterator it(path.parent_path());
-    for (const auto& entry : it) {
+    for (const auto& entry : it) 
+    {
         if (std::filesystem::is_regular_file(entry)
-            && entry.path().extension() == extension) {
+            && entry.path().extension() == extension
+            && entry.path().filename().string()._Starts_with(_path.stem().string())
+            ) 
+        {
             std::filesystem::remove(entry);
         }
     }
 };
 void Ylog::Interfaces::IFileLogger::Configure(
-    std::size_t new_buffer_size,
     const std::string& file_path,
-    std::uint8_t new_loglevel,
-    std::string new_timestamp_format
+    const std::uint8_t& new_loglevel,
+    const std::string& new_timestamp_format
 )
 {
     try
@@ -110,7 +113,7 @@ void Ylog::Interfaces::IRFLogger::Rotate()
         }
     }
 };
-void Ylog::Interfaces::IRFLogger::Set(std::uint8_t mode, bool status)
+void Ylog::Interfaces::IRFLogger::Set(const std::uint8_t& mode, bool status)
 {
     if (status)
     {

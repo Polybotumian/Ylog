@@ -24,7 +24,6 @@ namespace Ylog
 			void SetTimestampFormat(std::string format);
 		protected:
 			std::mutex _mutex;
-			std::vector<std::string> _buffer;
 			std::uint8_t _loglevel;
 			std::string _timestampFormat;
 			const std::string _logLevels[Ylog::Enums::Levels::LEVEL_COUNT]
@@ -37,10 +36,9 @@ namespace Ylog
 		{
 		public:
 			void Configure(
-				std::size_t new_buffer_size,
 				const std::string& file_path,
-				std::uint8_t new_loglevel,
-				std::string new_timestamp_format
+				const std::uint8_t& new_loglevel,
+				const std::string& new_timestamp_format
 			);
 		protected:
 			std::ofstream _file;
@@ -57,7 +55,7 @@ namespace Ylog
 			};
 
 			void SetRotationSize(const std::uint32_t& new_size);
-			void Set(std::uint8_t mode, bool status);
+			void Set(const std::uint8_t& mode, bool status);
 			bool IsRotates();
 		protected:
 			std::uint32_t _max_size{ 1073741824 };

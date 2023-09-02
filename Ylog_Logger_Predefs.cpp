@@ -1,7 +1,6 @@
 #include "Ylog_Logger_Predefs.h"
 
 Ylog::FileLogger::FileLogger(
-    std::size_t buffer_size,
     const char* file_path,
     std::uint8_t logLevel,
     const char* timestamp_format
@@ -9,7 +8,6 @@ Ylog::FileLogger::FileLogger(
 {
     try
     {
-        _buffer.resize(buffer_size);
         _path = file_path;
         RemoveLogs(_path, _path.extension().string());
         _loglevel = logLevel;
@@ -40,15 +38,14 @@ void Ylog::FileLogger::Log(std::uint8_t loglevel, std::string log_message)
     std::lock_guard<std::mutex> lock(_mutex);
     if (loglevel >= _loglevel)
     {
-        _file << '[' << std::this_thread::get_id() 
-            << "] - [" << GetTimestamp()
-            <<"] - [" << _logLevels[_loglevel]
-            <<"] : " << log_message << '\n';
+        _file << '[' << std::this_thread::get_id()
+           << "] - [" << GetTimestamp()
+           << "] - [" << _logLevels[_loglevel]
+           << "] : " << log_message << '\n';
     }
 };
 //************************************************************************************************
-Ylog::CustomizableFileLogger::CustomizableFileLogger(
-    std::size_t buffer_size,
+Ylog::CRFLogger::CRFLogger(
     const char* file_path,
     std::uint8_t logLevel,
     const char* new_log_format,
@@ -57,7 +54,6 @@ Ylog::CustomizableFileLogger::CustomizableFileLogger(
 {
     try
     {
-        _buffer.resize(buffer_size);
         _path = file_path;
         RemoveLogs(_path, _path.extension().string());
         _loglevel = logLevel;
@@ -80,12 +76,18 @@ Ylog::CustomizableFileLogger::CustomizableFileLogger(
         _file.close();
     }
 };
-Ylog::CustomizableFileLogger::~CustomizableFileLogger()
+Ylog::CRFLogger::~CRFLogger()
 {
     try
     {
         _file.close();
-        if (std::rename((_path.filename().string()).c_str(), (std::to_string(_rotated_file_count) + "_" + _path.filename().string()).c_str()) != 0)
+        if (std::rename(
+            (_path.filename().string()).c_str(),
+            (_path.stem().string()
+                        + '_' +
+                        std::to_string(_rotated_file_count)
+                        + _path.extension().string()).c_str()
+        ) != 0)
         {
             throw std::runtime_error("Ylog::Logger::~Logger(): Failed to rename \"" + _path.filename().string() + "\".");
         }
@@ -99,7 +101,7 @@ Ylog::CustomizableFileLogger::~CustomizableFileLogger()
         _file.close();
     }
 };
-void Ylog::CustomizableFileLogger::Log(std::uint8_t loglevel, std::string log_message)
+void Ylog::CRFLogger::Log(std::uint8_t loglevel, std::string log_message)
 {
     std::lock_guard<std::mutex> lock(_mutex);
     if (loglevel >= _loglevel)
