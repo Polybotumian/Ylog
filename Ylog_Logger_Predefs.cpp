@@ -1,5 +1,31 @@
 #include "Ylog_Logger_Predefs.h"
+#include <iostream>
 
+Ylog::ConsoleLogger::ConsoleLogger
+(
+    std::uint8_t logLevel,
+    const char* timestamp_format
+)
+{
+    _loglevel = logLevel;
+    _timestampFormat = timestamp_format;
+}
+Ylog::ConsoleLogger::~ConsoleLogger()
+{
+
+}
+void Ylog::ConsoleLogger::Log(std::uint8_t loglevel, std::string log_message)
+{
+    std::ostringstream logEntry;
+    logEntry << '[' << std::this_thread::get_id()
+        << "] - [" << GetTimestamp()
+        << "] - [" << _logLevels[_loglevel]
+        << "] : " << log_message << '\n';
+
+    // Output the log entry to the console in one operation
+    std::cout << logEntry.str() << std::endl;
+}
+//************************************************************************************************
 Ylog::FileLogger::FileLogger(
     const char* file_path,
     std::uint8_t logLevel,
@@ -93,7 +119,7 @@ Ylog::RFileLogger::~RFileLogger()
     catch (const std::exception& ex)
     {
         _file.close();
-        _file.open("CRFLogger.log", std::ios::out | std::ios::trunc | std::ios::binary);
+        _file.open("Ylog_RFileLogger.log", std::ios::out | std::ios::trunc | std::ios::binary);
         std::string err_message = ex.what();
         Log(Ylog::Enums::Levels::ERROR, err_message);
         _file.close();
@@ -162,7 +188,7 @@ Ylog::CRFLogger::~CRFLogger()
     catch (const std::exception& ex)
     {
         _file.close();
-        _file.open("CRFLogger.log", std::ios::out | std::ios::trunc | std::ios::binary);
+        _file.open("Ylog_CRFLogger.log", std::ios::out | std::ios::trunc | std::ios::binary);
         std::string err_message = ex.what();
         Log(Ylog::Enums::Levels::ERROR, err_message);
         _file.close();

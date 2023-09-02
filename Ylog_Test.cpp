@@ -8,17 +8,28 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+
+	Ylog::ConsoleLogger cLogger(Ylog::Enums::Levels::TRACE);
+	auto start = std::chrono::high_resolution_clock::now();
+	for (size_t i = 0; i < 20000; i++)
+	{
+		cLogger.Log(Ylog::Enums::Levels::DEBUG, "ConsoleLogger_TEST_" + std::to_string(i));
+	}
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> duration = end - start;
+	std::cout << "Elapsed time: " << duration.count() << " seconds" << std::endl;
+
 	Ylog::FileLogger fLogger(
 		(std::filesystem::current_path().string() + "\\FL_Test.log").c_str(),
 		Ylog::Enums::Levels::TRACE
 	);
-	auto start = std::chrono::high_resolution_clock::now();
+	start = std::chrono::high_resolution_clock::now();
 	for (size_t i = 0; i < 20000; i++)
 	{
 		fLogger.Log(Ylog::Enums::Levels::DEBUG, "FileLogger_TEST_" + std::to_string(i));
 	}
-	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> duration = end - start;
+	end = std::chrono::high_resolution_clock::now();
+	 duration = end - start;
 	std::cout << "Elapsed time: " << duration.count() << " seconds" << std::endl;
 
 	Ylog::RFileLogger rfLogger(

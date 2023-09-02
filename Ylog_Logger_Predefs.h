@@ -4,6 +4,17 @@
 
 namespace Ylog
 {
+	class ConsoleLogger : public Ylog::Interfaces::ILogger
+	{
+	public:
+		ConsoleLogger(
+			std::uint8_t logLevel,
+			const char* timestamp_format = "%Y-%m-%d %H:%M:%S"
+		);
+		~ConsoleLogger();
+		void Log(std::uint8_t loglevel, std::string log_message) override;
+	};
+
 	class FileLogger : public Ylog::Interfaces::IFileLogger
 	{
 	public:
