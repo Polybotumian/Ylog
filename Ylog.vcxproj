@@ -129,11 +129,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Test.cpp" />
-    <ClCompile Include="Ylog.cpp" />
+    <ClCompile Include="Ylog_Logger_Interfaces.cpp" />
+    <ClCompile Include="Ylog_Logger_Predefs.cpp" />
+    <ClCompile Include="Ylog_Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ylog.h" />
+    <ClInclude Include="Ylog_Enums.h" />
+    <ClInclude Include="Ylog_Logger_Interfaces.h" />
+    <ClInclude Include="YlogEnums.h" />
+    <ClInclude Include="Ylog_Logger_Predefs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
