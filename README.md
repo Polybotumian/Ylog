@@ -1,5 +1,6 @@
 # Ylog - C++ Logging Library
 Ylog is a versatile C++ logging library designed to simplify and enhance the logging experience in your C++ applications. It provides various logging features, including different log levels, file-based logging, log rotation, and custom log message formatting.
+**Ylog is still work in progress!**
 ## Features
 - **Multiple Log Levels**: Ylog supports different log levels, including TRACE, DEBUG, INFO, WARNING, ERROR, CRITICAL, and FATAL, allowing you to categorize log messages based on their importance.
 - **File-Based Logging**: You can log messages to files, making it easy to store and manage log data. Ylog provides options for specifying the log file path and configuring log files.
