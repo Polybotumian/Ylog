@@ -6,6 +6,7 @@ Ylog is a versatile C++ logging library designed to simplify and enhance the log
 - **Log Rotation**: The library offers log rotation functionality, allowing you to limit the size of log files. When a log file exceeds a specified size, it automatically rotates the log, keeping your log files manageable.
 - **Custom Log Message Formatting**: Ylog enables you to define custom log message formats, giving you full control over how log entries are structured.
 - **Thread-Safe**: Ylog is designed with thread safety in mind, ensuring that log messages from multiple threads are handled correctly.
+## Usage Examples
   ```cpp
   #include "Ylog_Logger_Predefs.h"
   
