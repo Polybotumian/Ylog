@@ -21,6 +21,20 @@ int main()
 	std::chrono::duration<double> duration = end - start;
 	std::cout << "Elapsed time: " << duration.count() << " seconds" << std::endl;
 
+	Ylog::RFileLogger rfLogger(
+		(std::filesystem::current_path().string() + "\\RFL_Test.log").c_str(),
+		Ylog::Enums::Levels::TRACE
+	);
+	rfLogger.Set(Ylog::Interfaces::IRFLogger::Modes::ROTATE, true);
+	start = std::chrono::high_resolution_clock::now();
+	for (size_t i = 0; i < 20000; i++)
+	{
+		rfLogger.Log(Ylog::Enums::Levels::DEBUG, "RFileLogger_TEST_" + std::to_string(i));
+	}
+	end = std::chrono::high_resolution_clock::now();
+	duration = end - start;
+	std::cout << "Elapsed time: " << duration.count() << " seconds" << std::endl;
+
 	Ylog::CRFLogger cfLogger(
 		(std::filesystem::current_path().string() + "\\CRFL_Test.log").c_str(),
 		Ylog::Enums::Levels::TRACE

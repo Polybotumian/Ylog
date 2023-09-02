@@ -15,6 +15,19 @@ namespace Ylog
 		~FileLogger();
 		void Log(std::uint8_t loglevel, std::string log_message) override;
 	};
+
+	class RFileLogger : public Ylog::Interfaces::IRFLogger
+	{
+	public:
+		RFileLogger(
+			const char* file_path,
+			std::uint8_t logLevel,
+			const char* timestamp_format = "%Y-%m-%d %H:%M:%S"
+		);
+		~RFileLogger();
+		void Log(std::uint8_t loglevel, std::string log_message) override;
+	};
+
 	class CRFLogger : public Ylog::Interfaces::ICRFLog
 	{
 	public:
